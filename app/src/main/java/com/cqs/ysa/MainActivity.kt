@@ -21,25 +21,30 @@ class MainActivity : BaseActivity() {
         if (savedInstanceState != null) {
             curIndex = savedInstanceState.getInt("curIndex")
         }
-//        verticalLayout {
-//            val name = editText()
-//            button("Say Hello") {
-//                onClick {
-//                    toast("Hello, ${name.text}!")
-//                }
-//            }
-//        }
         bottomNavigation.setOnNavigationItemSelectedListener(navigationListener)
-        mFragments[0] = HomeFragment().newInstance("首页")
-        mFragments[1] = VideoFragment().newInstance("视频")
-        mFragments[2] = NewsFragment().newInstance("新闻")
-        mFragments[3] = StatisticFragment().newInstance("统计")
-        mFragments[4] = MineFragment().newInstance("个人中心")
-        Log.e("TAG","onCreate curIndex = "+curIndex)
+        mFragments[0] = getFragment("首页",HomeFragment())
+        mFragments[1] = getFragment("视频",VideoFragment())
+        mFragments[2] = getFragment("新闻",NewsFragment())
+        mFragments[3] = getFragment("统计",StatisticFragment())
+        mFragments[4] = getFragment("个人中心",MineFragment())
         FragmentUtils.add(supportFragmentManager, mFragments as Array<Fragment>, R.id.container, curIndex)
         StatusBarUtil.setStatusBarColor(this, resources.getColor(R.color.colorPrimaryDark))
     }
-    var navigationListener = BottomNavigationView.OnNavigationItemSelectedListener{ menuItem ->
+
+    /**
+     * 获取fragment
+     */
+    private fun getFragment(title:String,fragment: Fragment):Fragment{
+        val args = Bundle()
+        args.putString("key",title)
+        fragment.arguments = args
+        return fragment
+    }
+
+    /**
+     * 底部切换监听
+     */
+    private var navigationListener = BottomNavigationView.OnNavigationItemSelectedListener{ menuItem ->
         when(menuItem.itemId){
             R.id.nav_home ->{
                 curIndex = 0
@@ -70,10 +75,13 @@ class MainActivity : BaseActivity() {
         false
     }
 
-    override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
-        super.onSaveInstanceState(outState, outPersistentState)
-        Log.e("TAG","curIndex = "+curIndex)
-        outState?.putInt("curIndex", curIndex)
+    /**
+     * 异常退出时 记录缓存
+     */
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        //outState?.putInt("curIndex", curIndex)
+        outState!!.putInt("curIndex",curIndex);
     }
 
 }

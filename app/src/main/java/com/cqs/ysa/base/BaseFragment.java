@@ -70,6 +70,7 @@ public abstract class BaseFragment extends Fragment {
         return mRoot;
     }
 
+
     /**
      * 初始化懒加载 数据
      * getUserVisibleHint() 是否对用户可见 对通过 show/hide 方式 始终为true
@@ -112,12 +113,12 @@ public abstract class BaseFragment extends Fragment {
     /**
      * 用于初始化相关组件
      * @param view
+     *
      */
     protected abstract void initView(View view);
 
     protected void toast(String msg){
         Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
-        //ToastUtil.showAtCenter(getContext(),msg);
     }
     /**
      * fragment第一次创建的时候并且页面不可见的时候 会调此方法
