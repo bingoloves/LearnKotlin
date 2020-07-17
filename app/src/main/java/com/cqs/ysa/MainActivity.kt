@@ -5,6 +5,7 @@ import android.os.PersistableBundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import com.cqs.ysa.base.BaseActivity
 import com.cqs.ysa.fragment.*
@@ -12,6 +13,7 @@ import com.cqs.ysa.statusbar.StatusBarUtil
 import com.cqs.ysa.utils.FragmentUtils
 import kotlinx.android.synthetic.main.activity_main.*
 
+@SuppressWarnings("unchecked")
 class MainActivity : BaseActivity() {
     val mFragments = arrayOfNulls<Fragment>(5)
     var curIndex: Int = 0
@@ -28,7 +30,7 @@ class MainActivity : BaseActivity() {
         mFragments[3] = getFragment("统计",StatisticFragment())
         mFragments[4] = getFragment("个人中心",MineFragment())
         FragmentUtils.add(supportFragmentManager, mFragments as Array<Fragment>, R.id.container, curIndex)
-        StatusBarUtil.setStatusBarColor(this, resources.getColor(R.color.colorPrimaryDark))
+        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this,R.color.colorPrimaryDark))
     }
 
     /**
@@ -81,7 +83,7 @@ class MainActivity : BaseActivity() {
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         //outState?.putInt("curIndex", curIndex)
-        outState!!.putInt("curIndex",curIndex);
+        outState!!.putInt("curIndex",curIndex)
     }
 
 }
