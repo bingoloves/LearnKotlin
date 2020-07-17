@@ -2,14 +2,10 @@ package com.cqs.ysa
 
 import android.graphics.Rect
 import android.os.Bundle
-import android.os.Parcel
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.util.Log
-import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.cqs.ysa.adapter.recyclerview.CommonAdapter
@@ -23,12 +19,9 @@ import com.cqs.ysa.retrofit.RetrofitUtil
 import com.cqs.ysa.utils.PreviewImageLoader
 import com.previewlibrary.GPreviewBuilder
 import com.previewlibrary.ZoomMediaLoader
-import com.previewlibrary.enitity.IThumbViewInfo
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_two.*
-import kotlinx.android.synthetic.main.layout_question_item.*
-import org.jetbrains.anko.find
 
 class TwoActivity : BaseActivity() {
     //初始化，有add，remove方法的集合
