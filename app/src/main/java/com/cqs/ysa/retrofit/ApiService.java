@@ -1,7 +1,7 @@
 package com.cqs.ysa.retrofit;
 
 import com.cqs.ysa.bean.DriverQuestion;
-
+import com.cqs.ysa.bean.TopNews;
 import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -17,7 +17,8 @@ public interface ApiService {
 
     @GET(DRIVER_QUESTION_URL)
     Observable<DriverQuestion> getQuestions();
-
+    @GET(TOP_NEWS_URL)
+    Observable<TopNews> getNews();
     @POST("/login")
     Observable<String> login(@Query("loginCode") String loginCode,
                              @Query("password") String password,

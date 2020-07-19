@@ -103,6 +103,10 @@ public class MultiItemTypeAdapter<T> extends BaseAdapter {
         return cacheMap.get(position);
     }
 
+    public Map<Integer, ViewHolder> getCacheMap() {
+        return cacheMap;
+    }
+
     public void add(T data){
         if (data != null){
             mDatas.add(mDatas.size(),data);

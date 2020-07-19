@@ -1,8 +1,11 @@
 package com.cqs.ysa.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,8 @@ import android.widget.Toast;
 public abstract class BaseFragment extends Fragment {
 
     private View mRoot;
+    protected Fragment fragment;
+    protected Context context;
     /**
      * 是否执行了lazyLoad方法
      */
@@ -51,6 +56,13 @@ public abstract class BaseFragment extends Fragment {
      * 子类可以重写这个方法做数据刷新操作
      */
     protected void refreshLoad(){}
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
+    }
+
     /**
      *  因为Fragment是缓存在内存中，所以可以保存mRoot ，防止view的重复加载
      *  与FragmentPagerAdapter 中destroyItem方法取消调用父类的效果是一样的，可以任选一种做法 推荐第二种
@@ -64,12 +76,21 @@ public abstract class BaseFragment extends Fragment {
             this.container = container;
             this.savedInstanceState = savedInstanceState;
             isCreateView = true;
-            initView(mRoot);
+            fragment = this;
+            //initView(mRoot);
             initLazyLoad();
         }
         return mRoot;
     }
 
+    /**
+     * kotlin需要在此方法中 才能获取控件id 不然报KotlinNullPointerException,这是因为当前的view并没有返回
+     */
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initView(mRoot);
+    }
 
     /**
      * 初始化懒加载 数据

@@ -77,7 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         StatusBarUtil.setRootViewFitsSystemWindows(this, true);
         //设置状态栏透明
         StatusBarUtil.setTranslucentStatus(this);
-        setStatusBarDark();
+        //setStatusBarDark();
     }
 
     /**
