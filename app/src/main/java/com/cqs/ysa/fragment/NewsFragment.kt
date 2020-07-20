@@ -1,71 +1,54 @@
 package com.cqs.ysa.fragment
 
 import android.graphics.Rect
-import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.Html
 import android.util.Log
 import android.view.View
-import android.widget.GridView
 import android.widget.ImageView
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.cqs.ysa.R
-import com.cqs.ysa.TwoActivity
 import com.cqs.ysa.adapter.recyclerview.CommonAdapter
 import com.cqs.ysa.adapter.recyclerview.base.ViewHolder
 import com.cqs.ysa.adapter.recyclerview.utils.GridDivider
 import com.cqs.ysa.base.BaseFragment
-import com.cqs.ysa.bean.*
+import com.cqs.ysa.bean.News
+import com.cqs.ysa.bean.ThumbViewInfo
+import com.cqs.ysa.bean.TopNews
 import com.cqs.ysa.retrofit.BaseObserver
 import com.cqs.ysa.retrofit.RetrofitUtil
 import com.cqs.ysa.ui.WebActivity
-import com.cqs.ysa.utils.PreviewImageLoader
-import com.google.gson.JsonObject
 import com.previewlibrary.GPreviewBuilder
-import com.previewlibrary.ZoomMediaLoader
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import kotlinx.android.synthetic.main.activity_two.*
-import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_news.*
 import org.jetbrains.anko.support.v4.startActivity
-import org.json.JSONObject
 
 /**
  * Created by bingo on 2020/7/15 0015.
  */
 class NewsFragment : BaseFragment(){
-    fun newInstance(title:String): NewsFragment {
-        val args = Bundle()
-        args.putString("key",title)
-        val fragment = NewsFragment()
-        fragment.arguments = args
-        return fragment
-    }
     //初始化，有add，remove方法的集合
     var list = ArrayList<News>()
     var adapter: CommonAdapter<News>? = null
     var layoutManager: LinearLayoutManager? = null
-
+    override fun getContentView(): Int {
+        return R.layout.fragment_news
+    }
     override fun initView(view: View) {
         var title = arguments?.get("key")
         Log.e("tag", title as String?)
-        ZoomMediaLoader.getInstance().init(PreviewImageLoader())
         initView()
-        getRequestData()
+        getNews()
     }
 
     override fun lazyLoad() {
     }
 
-    override fun getContentView(): Int {
-        return R.layout.fragment_news
-    }
+
     fun initView(){
         layoutManager = LinearLayoutManager(context)
         contentRv.layoutManager = layoutManager
@@ -109,8 +92,8 @@ class NewsFragment : BaseFragment(){
         contentRv.adapter = adapter
     }
 
-    fun getRequestData(){
-        RetrofitUtil.get().apiService.news
+    fun getNews(){
+        RetrofitUtil.get().apiService.getNews("top")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : BaseObserver<TopNews>(){

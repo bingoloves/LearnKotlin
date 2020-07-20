@@ -1,12 +1,10 @@
-package com.cqs.ysa
+package com.cqs.ysa.ui
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
-import android.util.Log
+import com.cqs.ysa.R
 import com.cqs.ysa.base.BaseActivity
 import com.cqs.ysa.fragment.*
 import com.cqs.ysa.statusbar.StatusBarUtil
@@ -24,13 +22,13 @@ class MainActivity : BaseActivity() {
             curIndex = savedInstanceState.getInt("curIndex")
         }
         bottomNavigation.setOnNavigationItemSelectedListener(navigationListener)
-        mFragments[0] = getFragment("首页",HomeFragment())
-        mFragments[1] = getFragment("视频",VideoFragment())
+        mFragments[0] = getFragment("驾校宝典",DrivingQuestionsFragment())
+        mFragments[1] = getFragment("股票", StockFragment())
         mFragments[2] = getFragment("新闻",NewsFragment())
-        mFragments[3] = getFragment("统计",StatisticFragment())
-        mFragments[4] = getFragment("个人中心",MineFragment())
+        mFragments[3] = getFragment("天气预报", WeatherFragment())
+        mFragments[4] = getFragment("个人中心",JokesFragment())
         FragmentUtils.add(supportFragmentManager, mFragments as Array<Fragment>, R.id.container, curIndex)
-        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this,R.color.colorPrimaryDark))
+        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark))
     }
 
     /**
@@ -82,8 +80,8 @@ class MainActivity : BaseActivity() {
      */
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        //outState?.putInt("curIndex", curIndex)
-        outState!!.putInt("curIndex",curIndex)
+        outState?.putInt("curIndex", curIndex)
+        //outState!!.putInt("curIndex",curIndex)
     }
 
 }

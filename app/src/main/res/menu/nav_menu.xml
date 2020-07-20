@@ -3,11 +3,11 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home"
-        android:title="首页" />
+        android:title="驾校宝典" />
     <item
         android:id="@+id/nav_video"
         android:icon="@drawable/ic_video"
-        android:title="视频" />
+        android:title="股票" />
     <item
         android:id="@+id/nav_news"
         android:icon="@drawable/ic_news"
@@ -15,7 +15,7 @@
     <item
         android:id="@+id/nav_statistic"
         android:icon="@drawable/ic_statistic"
-        android:title="统计" />
+        android:title="天气预报" />
     <item
         android:id="@+id/nav_mine"
         android:icon="@drawable/ic_mine"
