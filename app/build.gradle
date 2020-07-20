@@ -35,10 +35,10 @@ dependencies {
         exclude module: 'support-media-compat'
     }
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //刷新库
+    implementation project(':swipeRefresh')
     //anko
     implementation "org.jetbrains.anko:anko:$anko_version"
-//    implementation "org.jetbrains.anko:anko-sdk25:$anko_version"
-//    implementation "org.jetbrains.anko:anko-sdk25-coroutines:$anko_version"
     //网络请求
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'

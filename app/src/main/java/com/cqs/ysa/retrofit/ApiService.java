@@ -79,7 +79,8 @@ public interface ApiService {
      */
     @GET("http://v.juhe.cn/joke/content/list.php?key=7e7404aae472a996f8df537ad5ceea55&sort=desc")
     Observable<Jokes> getJokeList(@Query("page") int page, @Query("pagesize") int pagesize, @Query("time") long time);
-
+    @GET("https://api.apiopen.top/todayVideo")
+    Observable<Jokes> getTodayVideo();
     @POST("/login")
     Observable<String> login(@Query("loginCode") String loginCode, @Query("password") String password);
 
