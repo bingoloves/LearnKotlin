@@ -32,10 +32,10 @@ class JokesFragment : BaseFragment(){
     var nextPage = true//是否有下一页
     var loadEnd = true //是否加载完成
     var isLoadMore = false//是否加载更多
-    override fun getContentView(): Int {
+    override fun contentView(): Int {
         return R.layout.fragment_jokes
     }
-    override fun initView(view: View) {
+    override fun initView(view: View?) {
         initView()
         getStock()
     }
@@ -83,7 +83,7 @@ class JokesFragment : BaseFragment(){
                 .subscribe(object : BaseObserver<Jokes>(){
                     override fun onSuccess(data: Jokes?) {
                         if (data!!.error_code == 0){
-                            val temp = data.result.data as ArrayList<Jokes.ResultBean.DataBean>
+                            val temp = data.result?.data as ArrayList<Jokes.ResultBean.DataBean>
                             if(!isLoadMore)list.clear()
                             list.addAll(list.size,temp)
                             adapter!!.notifyDataSetChanged()
@@ -91,7 +91,8 @@ class JokesFragment : BaseFragment(){
 //                            swipe_target.scheduleLayoutAnimation()
                             nextPage = temp.size <= pageSize
                         } else{
-                            toast(data.reason)
+                            var msg = data.reason?:return
+                            toast(msg)
                         }
                     }
 
@@ -102,6 +103,7 @@ class JokesFragment : BaseFragment(){
                     override fun onComplete() {
                         super.onComplete()
                         loadEnd = true
+                        if(list.size>0 ) emptyLayout.showContentView() else emptyLayout.showLoading()
                         smartRefresh?.finishLoadMore(true)
                         smartRefresh?.finishRefresh(true)
                     }

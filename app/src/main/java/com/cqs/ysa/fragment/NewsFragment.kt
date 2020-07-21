@@ -39,11 +39,11 @@ class NewsFragment : BaseFragment(){
     var adapter: CommonAdapter<News>? = null
     var layoutManager: LinearLayoutManager? = null
 
-    override fun getContentView(): Int {
+    override fun contentView(): Int {
         return R.layout.fragment_news
     }
 
-    override fun initView(view: View) {
+    override fun initView(view: View?) {
         var title = arguments?.get("key")
         Log.e("tag", title as String?)
         initView()
@@ -72,10 +72,10 @@ class NewsFragment : BaseFragment(){
                 val gridAdapter = object :CommonAdapter<String>(context,R.layout.layout_news_image_item,images){
                     override fun convert(viewHolder: ViewHolder?, path: String?, pos: Int) {
                         var imageView = viewHolder!!.getView<ImageView>(R.id.iv_image)
-                        Glide.with(context).load(path).apply(RequestOptions.bitmapTransform(RoundedCorners(8))).into(imageView)
+                        Glide.with(context!!).load(path).apply(RequestOptions.bitmapTransform(RoundedCorners(8))).into(imageView)
                         imageView.setOnClickListener{
                            var thumbViewInfoList = computeBoundsBackward(gridLayoutManager,images)
-                            GPreviewBuilder.from(fragment)
+                            GPreviewBuilder.from(fragment!!)
                                     .setData(thumbViewInfoList)
                                     .setCurrentIndex(pos)
                                     .setSingleFling(true)//是否在黑屏区域点击返回

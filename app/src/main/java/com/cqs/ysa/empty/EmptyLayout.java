@@ -22,7 +22,7 @@ import com.cqs.ysa.R;
  * Created by Administrator on 2020/7/21 0021.
  */
 
-public class EmptyLayout extends FrameLayout {
+public class EmptyLayout extends FrameLayout implements View.OnClickListener{
     private Context context;
     private View contentView;
     private View emptyLayout;
@@ -32,7 +32,7 @@ public class EmptyLayout extends FrameLayout {
     private ImageView emptyImageView;
     private TextView emptyTextView;
     private Button emptyButton;
-
+    private OnReloadListener onReloadListener;
     int emptyIconNoData ,emptyIconNoNetwork,emptyIconError;
     String noDataText,noNetworkText,errorText,reloadText= "点击重试";
     boolean hideReloadButton;
@@ -109,6 +109,8 @@ public class EmptyLayout extends FrameLayout {
         setReloadText(builder.reloadText);
         setHideReloadButton(builder.hideReloadButton);
         setHideTips(builder.hideTips);
+
+        showContentView();
         addView(emptyLayout);
     }
 
@@ -145,19 +147,33 @@ public class EmptyLayout extends FrameLayout {
 
     public EmptyLayout setReloadText(String reloadText) {
         this.reloadText = reloadText;
+        emptyButton.setText(reloadText);
         return this;
     }
 
     public EmptyLayout setHideReloadButton(boolean hideReloadButton) {
         this.hideReloadButton = hideReloadButton;
+        emptyButton.setVisibility(hideReloadButton?GONE:VISIBLE);
         return this;
     }
 
     public EmptyLayout setHideTips(boolean hideTips) {
         this.hideTips = hideTips;
+        emptyTextView.setVisibility(hideTips?GONE:VISIBLE);
         return this;
     }
 
+    public void setOnReloadListener(OnReloadListener onReloadListener) {
+        this.onReloadListener = onReloadListener;
+    }
+
+    public void hideAll(){
+        emptyLl.setVisibility(GONE);
+        progressBar.setVisibility(GONE);
+        if (contentView != null) {
+            contentView.setVisibility(GONE);
+        }
+    }
     public void showEmpty(){
         emptyLl.setVisibility(VISIBLE);
         progressBar.setVisibility(GONE);
@@ -196,6 +212,24 @@ public class EmptyLayout extends FrameLayout {
             contentView.setVisibility(VISIBLE);
         }
     }
+
+    @Override
+    public void onClick(View view) {
+        int i = view.getId();
+        if (i == R.id.btn_empty_reload) {
+            if (onReloadListener != null) {
+                onReloadListener.onReload(view);
+            }
+        }
+    }
+
+    /**
+     * 点击重试按钮事件
+     */
+    public interface OnReloadListener {
+        void onReload(View v);
+    }
+
     public static class Builder {
          int emptyIconNoData = R.drawable.ic_empty_no_data;
          int emptyIconNoNetwork = R.drawable.ic_empty_no_data;

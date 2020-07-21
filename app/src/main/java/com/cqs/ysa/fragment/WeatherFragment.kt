@@ -1,6 +1,7 @@
 package com.cqs.ysa.fragment
 
 import android.graphics.Color
+import android.graphics.drawable.AnimationDrawable
 import android.util.Log
 import android.view.View
 import com.cqs.ysa.R
@@ -26,12 +27,14 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
  */
 class WeatherFragment : BaseFragment(){
     var list = ArrayList<Weather.ResultBean.FutureBean>()
-    override fun getContentView(): Int {
+    override fun contentView(): Int {
         return R.layout.fragment_weather
     }
-    override fun initView(view: View) {
-        initLineChart();
+    override fun initView(view: View?) {
+        initLineChart()
         getWeather()
+        var animDrawable = loading.drawable as AnimationDrawable
+        animDrawable.start()
     }
 
     override fun lazyLoad() {

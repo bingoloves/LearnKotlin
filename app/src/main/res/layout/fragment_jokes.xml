@@ -7,9 +7,14 @@
         android:id="@+id/smartRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/contentRv"
+        <com.cqs.ysa.empty.EmptyLayout
+            android:id="@+id/emptyLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/contentRv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.cqs.ysa.empty.EmptyLayout>
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </RelativeLayout>

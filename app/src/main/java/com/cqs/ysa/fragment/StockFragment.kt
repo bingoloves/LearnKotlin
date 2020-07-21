@@ -25,10 +25,10 @@ class StockFragment : BaseFragment(){
     var adapter: CommonAdapter<Stock.ResultBean.DataBean>? = null
     var layoutManager: LinearLayoutManager? = null
 
-    override fun getContentView(): Int {
+    override fun contentView(): Int {
         return R.layout.fragment_stock
     }
-    override fun initView(view: View) {
+    override fun initView(view: View?) {
         initView()
         getStock()
     }

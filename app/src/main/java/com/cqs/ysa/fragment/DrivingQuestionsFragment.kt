@@ -41,12 +41,14 @@ import java.util.*
  * 驾校宝典题目
  */
 class DrivingQuestionsFragment : BaseFragment() {
+
     //初始化，有add，remove方法的集合
     var list = ArrayList<Question>()
     var adapter: CommonAdapter<Question>? = null
     var thumbViewInfoList = ArrayList<ThumbViewInfo>()
     var layoutManager: LinearLayoutManager? = null
-    override fun initView(view: View) {
+
+    override fun initView(view: View?) {
         var title = arguments?.get("key")
         Log.e("tag", title as String?)
         initView()
@@ -57,7 +59,7 @@ class DrivingQuestionsFragment : BaseFragment() {
 
     }
 
-    override fun getContentView(): Int {
+    override fun contentView(): Int {
         return R.layout.fragment_driving_questions
     }
     fun initView(){
@@ -85,7 +87,7 @@ class DrivingQuestionsFragment : BaseFragment() {
                 holder.setVisible(R.id.radio3,!t.item3.isNullOrEmpty())
                 holder.setVisible(R.id.radio4,!t.item4.isNullOrEmpty())
                 holder.setVisible(R.id.image,!t.url.isNullOrEmpty())
-                Glide.with(context).load(t.url).apply(RequestOptions.bitmapTransform(RoundedCorners(2))).into(imageView)
+                Glide.with(context!!).load(t.url).apply(RequestOptions.bitmapTransform(RoundedCorners(2))).into(imageView)
                 for (i in 0 until radioGroup.childCount) {
                     var radioBtn = radioGroup.getChildAt(i) as RadioButton
                     radioBtn.isChecked = t.answer.toInt() == i+1
@@ -93,7 +95,7 @@ class DrivingQuestionsFragment : BaseFragment() {
                 }
                 imageView.setOnClickListener {
                     computeBoundsBackward(layoutManager!!.findFirstVisibleItemPosition())
-                    GPreviewBuilder.from(fragment)
+                    GPreviewBuilder.from(fragment!!)
                             .setData(thumbViewInfoList)
                             .setCurrentIndex(position)
                             .setSingleFling(true)//是否在黑屏区域点击返回

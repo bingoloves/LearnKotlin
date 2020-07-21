@@ -9,10 +9,10 @@ import com.cqs.ysa.base.BaseFragment
  * Created by bingo on 2020/7/15 0015.
  */
 class MineFragment : BaseFragment(){
-    override fun getContentView(): Int {
+    override fun contentView(): Int {
         return R.layout.fragment_mine
     }
-    override fun initView(view: View) {
+    override fun initView(view: View?) {
         var title = arguments?.get("key")
         Log.e("tag", title as String?)
 
