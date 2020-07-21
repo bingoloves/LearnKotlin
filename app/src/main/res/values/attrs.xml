@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--空视图-->
+    <declare-styleable name="EmptyLayout">
+        <attr name="el_text_no_data" format="reference|string"/><!--无数据的文案-->
+        <attr name="el_text_no_network" format="reference|string"/><!--无网络的文案-->
+        <attr name="el_text_error" format="reference|string"/><!--错误的文案-->
+        <attr name="el_text_reload" format="reference"/><!--重写加载按钮的文案-->
+        <attr name="el_hide_reload_btn" format="boolean"/><!--隐藏重新加载按钮-->
+        <attr name="el_hide_tips" format="boolean"/><!--隐藏提示信息-->
+        <attr name="el_image_no_data" format="reference"/><!--无数据的图标-->
+        <attr name="el_image_no_network" format="reference"/><!--无网络的图标-->
+        <attr name="el_image_error" format="reference"/><!--错误的图标-->
+
+    </declare-styleable>
+</resources>

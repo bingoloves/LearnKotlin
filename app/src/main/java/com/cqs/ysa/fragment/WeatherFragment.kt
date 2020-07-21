@@ -68,6 +68,7 @@ class WeatherFragment : BaseFragment(){
      * 设置折线图的数据
      */
     private fun setLineChartData() {
+        if(!isAdded) return
         val minValues = ArrayList<Entry>()
         val maxValues = ArrayList<Entry>()
         for ((index,bean) in list.withIndex()){

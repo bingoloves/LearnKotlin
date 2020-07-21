@@ -35,8 +35,6 @@ dependencies {
         exclude module: 'support-media-compat'
     }
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    //刷新库
-    implementation project(':swipeRefresh')
     //anko
     implementation "org.jetbrains.anko:anko:$anko_version"
     //网络请求
@@ -47,8 +45,12 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     //图片加载框架
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+    //implementation 'io.coil-kt:coil:0.9.5'//图片加载库 需要Androidx
     //图片预览框架
     implementation 'com.ycjiang:ImagePreview:2.3.5'
     //图表框架
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    //刷新库 SmartRefreshLayout
+    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.1'//核心必须依赖
+    implementation  'com.scwang.smart:refresh-header-classics:2.0.1'//经典刷新头
 }

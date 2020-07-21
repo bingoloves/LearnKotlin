@@ -29,9 +29,12 @@ import com.cqs.ysa.retrofit.BaseObserver
 import com.cqs.ysa.retrofit.RetrofitUtil
 import com.cqs.ysa.ui.MainActivity
 import com.previewlibrary.GPreviewBuilder
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.ClassicsHeader
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_driving_questions.*
+import java.util.*
 
 /**
  * Created by bingo on 2020/7/15 0015.
@@ -101,8 +104,16 @@ class DrivingQuestionsFragment : BaseFragment() {
             }
         }
         //设置缓存，避免数据混乱问题
-        contentRv.setItemViewCacheSize(100);
+        contentRv.setItemViewCacheSize(100)
         contentRv.adapter = adapter
+        smartRefresh.setRefreshHeader(ClassicsHeader(context))
+        smartRefresh.setRefreshFooter(ClassicsFooter(context))
+        smartRefresh.setOnRefreshListener {
+            smartRefresh.finishRefresh(2000/*,false*/)//传入false表示刷新失败
+        }
+        smartRefresh.setOnLoadMoreListener {
+            smartRefresh.finishLoadMore(2000/*,false*/)//传入false表示刷新失败
+        }
     }
 
     fun getDriverQuestions(){

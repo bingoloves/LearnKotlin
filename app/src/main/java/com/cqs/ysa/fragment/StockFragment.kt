@@ -10,6 +10,8 @@ import com.cqs.ysa.base.BaseFragment
 import com.cqs.ysa.bean.Stock
 import com.cqs.ysa.retrofit.BaseObserver
 import com.cqs.ysa.retrofit.RetrofitUtil
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.ClassicsHeader
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_stock.*
@@ -35,7 +37,6 @@ class StockFragment : BaseFragment(){
 
     }
 
-
     fun initView(){
         layoutManager = LinearLayoutManager(context)
         contentRv.layoutManager = layoutManager
@@ -60,6 +61,16 @@ class StockFragment : BaseFragment(){
         //设置缓存，避免数据混乱问题
         contentRv.setItemViewCacheSize(100)
         contentRv.adapter = adapter
+        smartRefresh.setRefreshHeader(ClassicsHeader(context))
+        smartRefresh.setRefreshFooter(ClassicsFooter(context))
+        smartRefresh.setOnRefreshListener {
+            emptyLayout.postDelayed({
+                smartRefresh.finishRefresh(true)
+            },2000)
+        }
+        smartRefresh.setOnLoadMoreListener {
+            smartRefresh.finishLoadMore(2000)
+        }
     }
     fun getStock(){
         RetrofitUtil.get().apiService.getStock(1,1)

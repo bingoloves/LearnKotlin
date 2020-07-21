@@ -11,9 +11,12 @@ import com.cqs.ysa.base.BaseFragment
 import com.cqs.ysa.bean.Jokes
 import com.cqs.ysa.retrofit.BaseObserver
 import com.cqs.ysa.retrofit.RetrofitUtil
+import com.scwang.smart.refresh.footer.ClassicsFooter
+import com.scwang.smart.refresh.header.ClassicsHeader
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_jokes.*
+import java.util.*
 
 /**
  * Created by bingo on 2020/7/15 0015.
@@ -43,7 +46,7 @@ class JokesFragment : BaseFragment(){
 
     fun initView(){
         layoutManager = LinearLayoutManager(context)
-        swipe_target.layoutManager = layoutManager
+        contentRv.layoutManager = layoutManager
         adapter = object : CommonAdapter<Jokes.ResultBean.DataBean>(context,R.layout.layout_jokes_item,list){
             override fun convert(holder: ViewHolder?, t: Jokes.ResultBean.DataBean?, position: Int) {
                 holder!!.setText(R.id.tv_time,t!!.updatetime)
@@ -51,10 +54,17 @@ class JokesFragment : BaseFragment(){
             }
         }
         //设置缓存，避免数据混乱问题
-        swipe_target.setItemViewCacheSize(10)
-        swipe_target.adapter = adapter
-//        swipe_target.itemAnimator =
-        swipeToLoadLayout.setOnLoadMoreListener {
+        contentRv.setItemViewCacheSize(10)
+        contentRv.adapter = adapter
+//        contentRv.itemAnimator =
+        smartRefresh.setRefreshHeader(ClassicsHeader(context).setLastUpdateTime(Date()))
+        smartRefresh.setRefreshFooter(ClassicsFooter(context))
+        smartRefresh.setOnRefreshListener {
+            page =1
+            isLoadMore = false
+            getStock()
+        }
+        smartRefresh.setOnLoadMoreListener {
             if (nextPage && loadEnd){
                 page++
                 isLoadMore = true
@@ -62,11 +72,6 @@ class JokesFragment : BaseFragment(){
             } else{
                 toast("没有更多数据！")
             }
-        }
-        swipeToLoadLayout.setOnRefreshListener {
-            page =1
-            isLoadMore = false
-            getStock()
         }
     }
     fun getStock(){
@@ -97,8 +102,8 @@ class JokesFragment : BaseFragment(){
                     override fun onComplete() {
                         super.onComplete()
                         loadEnd = true
-                        swipeToLoadLayout.isRefreshing = false
-                        swipeToLoadLayout.isLoadingMore = false
+                        smartRefresh?.finishLoadMore(true)
+                        smartRefresh?.finishRefresh(true)
                     }
                 })
     }
