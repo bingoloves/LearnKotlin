@@ -33,8 +33,8 @@ class WeatherFragment : BaseFragment(){
     override fun initView(view: View?) {
         initLineChart()
         getWeather()
-        var animDrawable = loading.drawable as AnimationDrawable
-        animDrawable.start()
+//        var animDrawable = loading.drawable as AnimationDrawable
+//        animDrawable.start()
     }
 
     override fun lazyLoad() {

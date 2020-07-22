@@ -18,7 +18,7 @@ import com.cqs.ysa.statusbar.StatusBarUtil
  */
 abstract class BaseActivity : AppCompatActivity() {
 
-    var activity: Activity? = null
+    private var activity: Activity? = null
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
