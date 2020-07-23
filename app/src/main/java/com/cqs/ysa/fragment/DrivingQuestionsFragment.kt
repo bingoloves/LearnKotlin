@@ -15,6 +15,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -31,9 +32,12 @@ import com.cqs.ysa.ui.MainActivity
 import com.previewlibrary.GPreviewBuilder
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
+import com.zzhoujay.richtext.ImageHolder
+import com.zzhoujay.richtext.RichText
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_driving_questions.*
+import kotlinx.android.synthetic.main.fragment_rich_text.*
 import java.util.*
 
 /**
@@ -76,12 +80,16 @@ class DrivingQuestionsFragment : BaseFragment() {
                 holder.setText(R.id.radio3,t.item3)
                 holder.setText(R.id.radio4,t.item4)
                 holder.setText(R.id.tv_answer,"本题答案：${t.answer}")
-                holder.setText(R.id.tv_explains,"答案解析："+ Html.fromHtml(t.explains))
-//                var explainsTv = holder.getView<TextView>(R.id.tv_explains)
+//                holder.setText(R.id.tv_explains,"答案解析："+ Html.fromHtml(t.explains))
+                var explainsTv = holder.getView<TextView>(R.id.tv_explains)
 //                explainsTv.text = "答案解析："+ Html.fromHtml(t.explains)
 //                explainsTv.text = getClickableSpan()//测试自定义可点击富文本
 //                explainsTv.setMovementMethod(LinkMovementMethod.getInstance())//设置该句使文本的超连接起作用
 
+                RichText.from(t.explains).bind(DrivingQuestionsFragment::class.java)
+                        .showBorder(false)
+                        .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
+                        .into(explainsTv)
                 holder.setVisible(R.id.radio1,!t.item1.isNullOrEmpty())
                 holder.setVisible(R.id.radio2,!t.item2.isNullOrEmpty())
                 holder.setVisible(R.id.radio3,!t.item3.isNullOrEmpty())
@@ -183,5 +191,10 @@ class DrivingQuestionsFragment : BaseFragment() {
         //设置文字的前景色
         spanStr.setSpan(ForegroundColorSpan(Color.BLUE), 65, 71, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         return spanStr
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        RichText.clear(DrivingQuestionsFragment::class.java)
     }
 }

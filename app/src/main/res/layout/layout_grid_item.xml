@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_title"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawableTop="@drawable/ic_news"
+    android:drawablePadding="10dp"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:includeFontPadding="false"
+    android:text="第三方协管"
+    android:paddingTop="13dp"
+    android:background="@android:color/white"
+    android:paddingBottom="13dp"
+    android:textColor="#FF6F747F"
+    android:textSize="12sp">
+</TextView>

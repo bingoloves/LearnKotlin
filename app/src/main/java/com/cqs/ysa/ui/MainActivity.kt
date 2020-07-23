@@ -26,7 +26,7 @@ class MainActivity : BaseActivity() {
         mFragments[1] = getFragment("股票", StockFragment())
         mFragments[2] = getFragment("新闻",NewsFragment())
         mFragments[3] = getFragment("天气预报", WeatherFragment())
-        mFragments[4] = getFragment("个人中心",JokesFragment())
+        mFragments[4] = getFragment("个人中心",MineFragment())//JokesFragment()
         FragmentUtils.add(supportFragmentManager, mFragments as Array<Fragment>, R.id.container, curIndex)
         StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark))
     }
@@ -80,8 +80,8 @@ class MainActivity : BaseActivity() {
      */
     override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
-        outState?.putInt("curIndex", curIndex)
-        //outState!!.putInt("curIndex",curIndex)
+//        outState?.putInt("curIndex", curIndex)
+        outState!!.putInt("curIndex",curIndex)
     }
 
 }

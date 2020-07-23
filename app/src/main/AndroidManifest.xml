@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.WebActivity"/>
+        <activity android:name=".ui.FunctionActivity"/>
     </application>
 
 </manifest>

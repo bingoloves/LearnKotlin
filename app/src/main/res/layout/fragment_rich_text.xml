@@ -7,17 +7,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="个人中心"
+        android:text="富文本"
         android:background="@color/colorPrimary"
         android:textSize="16sp"
         android:textColor="@android:color/white"
         android:gravity="center"/>
-    <GridView
-        android:id="@+id/gridView"
+    <TextView
+        android:id="@+id/richTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:numColumns="4"
-        android:layout_margin="10dp"
-        android:verticalSpacing="10dp"
-        android:horizontalSpacing="4dp"/>
+        android:layout_margin="10dp"/>
 </LinearLayout>
