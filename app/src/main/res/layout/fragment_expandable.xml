@@ -2,24 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#f6f6f6">
+    android:orientation="vertical">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:text="新闻"
+        android:text="可扩展列表"
         android:background="@color/colorPrimary"
         android:textSize="16sp"
         android:textColor="@android:color/white"
         android:gravity="center"/>
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/smartRefresh"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/contentRv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/contentRv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-
+        android:layout_height="match_parent" />
 </LinearLayout>

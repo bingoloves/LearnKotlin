@@ -5,6 +5,14 @@
     android:gravity="center"
     android:background="#f6f6f6"
     android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="驾校宝典"
+        android:background="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"/>
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/smartRefresh"
         android:layout_width="match_parent"

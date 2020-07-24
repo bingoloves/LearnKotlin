@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="#f6f6f6">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="股票"
+        android:background="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"/>
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/smartRefresh"
         android:layout_width="match_parent"
@@ -17,4 +26,4 @@
                 android:layout_height="wrap_content"/>
         </com.cqs.ysa.empty.EmptyLayout>
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-</RelativeLayout>
+</LinearLayout>
