@@ -12,11 +12,24 @@ android {
         versionCode rootProject.versionCode
         versionName rootProject.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
         }
     }
 }
@@ -55,4 +68,10 @@ dependencies {
     implementation  'com.scwang.smart:refresh-header-classics:2.0.1'//经典刷新头
     //富文本
     implementation 'com.zzhoujay.richtext:richtext:3.0.7'
+    //视频播放库
+    implementation 'com.shuyu:GSYVideoPlayer:6.0.3'
+    implementation 'fm.jiecao:jiecaovideoplayer:5.8.1'//节操播放器
+    implementation 'cn.jzvd:jiaozivideoplayer:7.4.2'//饺子播放器
+    implementation project(':vitamio')//无法在暂时无法在Android api 23以上的版本运行
+    implementation project(':yasea')  //客户端推流
 }

@@ -15,7 +15,8 @@ class FunctionActivity:BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_function)
-        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark))
+//        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark))
+        com.cqs.ysa.utils.StatusBarUtil.setTranslucent(this,100)
         var className = intent.extras["className"] as String
         if (!className.isNullOrEmpty()){
             val forName = Class.forName(className)

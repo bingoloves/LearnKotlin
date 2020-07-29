@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#f6f6f6">
+    <!--<TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="视频播放"
+        android:background="@color/colorPrimary"
+        android:textSize="16sp"
+        android:textColor="@android:color/white"
+        android:gravity="center"/>-->
+    <com.cqs.ysa.widget.video.XGSYVideoPlayer
+        android:id="@+id/videoPlayer"
+        android:layout_width="match_parent"
+        android:layout_height="260dp"/>
+</LinearLayout>

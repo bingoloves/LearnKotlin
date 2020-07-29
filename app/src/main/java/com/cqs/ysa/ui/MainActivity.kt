@@ -1,7 +1,9 @@
 package com.cqs.ysa.ui
 
+import android.Manifest
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
 import com.cqs.ysa.R
@@ -29,6 +31,7 @@ class MainActivity : BaseActivity() {
         mFragments[4] = getFragment("个人中心",MineFragment())
         FragmentUtils.add(supportFragmentManager, mFragments as Array<Fragment>, R.id.container, curIndex)
         StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark))
+        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE),200)
     }
 
     /**

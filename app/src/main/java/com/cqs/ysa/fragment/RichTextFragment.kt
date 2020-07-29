@@ -1,11 +1,16 @@
 package com.cqs.ysa.fragment
 
+import android.graphics.Rect
+import android.util.Log
 import android.view.View
 import com.cqs.ysa.R
 import com.cqs.ysa.base.BaseFragment
+import com.cqs.ysa.bean.ThumbViewInfo
+import com.previewlibrary.GPreviewBuilder
 import com.zzhoujay.richtext.ImageHolder
 import com.zzhoujay.richtext.RichText
 import kotlinx.android.synthetic.main.fragment_rich_text.*
+import org.jetbrains.anko.windowManager
 
 /**
  * Created by bingo on 2020/7/23 0023.
@@ -20,6 +25,9 @@ class RichTextFragment:BaseFragment(){
     "                    西班牙的阵容堪称豪华：德赫亚一夫当关；卡尔哈尔、阿尔巴双翼齐飞；皮克看穿一切；拉莫斯固若金汤；伊涅斯塔老骥伏枥；布斯克斯左右逢源；大卫席尔瓦人球合一；迭戈科斯塔宛如战兽……还有伊斯科、阿森西奥等年轻俊杰，随时能为球队提供活力。\n"+"</div></div><div data-a-03c92b82><div class=\"wa-news-content-body-text c-font-big\"data-a-03c92b82>\n" +
     "而葡萄牙则是C罗一个人的球队。C罗身为当世最好的两位超巨之一，无论何时何地，他都有着摧毁对手防线的魔力。只要给他一点点的机会或者是空隙，他都有办法杀死比赛的悬念。\n"+
     "                </div></div><div data-a-03c92b82><div class=\"wa-news-content-body-img\" style=\"margin-top:-.08rem;\" data-a-03c92b82><img src=\"http://pic.rmb.bdstatic.com/3a334c1a7f9f715ffcf6e5488e0195ac.jpeg@wm_2,t_55m+5a625Y+3L+evrueQg+W/q+aKpQ==,fc_ffffff,ff_U2ltSGVp,sz_14,x_9,y_9\"width=\"100%\" data-a-03c92b82></div></div><div data-a-03c92b82><div class=\"wa-news-content-body-text c-font-big\" data-a-03c92b82>\n" +"                    最佳球队对阵最佳球员，这种比赛放在任何时代都是焦点中的焦点。不过，就是这样的一场堪称火星撞地球的较量，却被双方的场外因素给吸了睛。"
+//    val htmlText = "<img src=\"https://resource.xiyugoods.com/f/fsbz03nigvfv4yuq00fcjzozsli7qps7.jpg\">\n<p>这是一个好商品</p>"
+
+
     override fun contentView(): Int {
         return R.layout.fragment_rich_text
     }
@@ -30,6 +38,17 @@ class RichTextFragment:BaseFragment(){
         RichText.from(htmlText).bind(this)
                 .showBorder(false)
                 .size(ImageHolder.MATCH_PARENT, ImageHolder.WRAP_CONTENT)
+                .clickable(true)
+                .imageClick { imageUrls, position ->
+                    Log.e("TAG","size = "+imageUrls.size+"imageUrl ="+imageUrls[position])
+                    GPreviewBuilder.from(fragment!!)
+                            .setData(getThumbViewInfoList(imageUrls as ArrayList<String>))
+                            .setCurrentIndex(position)
+                            .setSingleFling(true)//是否在黑屏区域点击返回
+                            .setDrag(false)//是否禁用图片拖拽返回
+                            .setType(GPreviewBuilder.IndicatorType.Number)//指示器类型
+                            .start()//启动
+                }
                 .into(richTv)
     }
 
@@ -39,5 +58,28 @@ class RichTextFragment:BaseFragment(){
         super.onDestroy()
         //结束时清空内容
         RichText.clear(this)
+    }
+
+    /**
+     * 重新计算当前图片位置
+     */
+    fun getThumbViewInfoList(images: ArrayList<String>): ArrayList<ThumbViewInfo> {
+        var thumbViewInfoList = ArrayList<ThumbViewInfo>()
+        //计算屏幕宽高
+        val display = context?.windowManager?.defaultDisplay
+        var height = display?.height
+        var width = display?.width
+        Log.e("TAG","屏幕宽高："+width+"-------"+height)
+        val bounds = Rect()
+        bounds.left = width!!/2-50
+        bounds.top = height!!/2-50
+        bounds.right = width/2+50
+        bounds.bottom = height/2+50
+        for (data in images){
+            val item = ThumbViewInfo(data)
+            item.bounds = bounds
+            thumbViewInfoList.add(item)
+        }
+        return thumbViewInfoList
     }
 }
