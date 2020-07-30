@@ -8,6 +8,16 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <!-- websocket -->
+    <!-- 解锁屏幕需要的权限 -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <!-- 申请电源锁需要的权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--震动权限-->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!--android 9.0之后使用前台服务，需要添加权限-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -60,6 +70,17 @@
         <activity android:name=".ui.VitamioActivity"/>
         <activity android:name=".tiktok.ActivityTikTok"/>
         <activity android:name=".ui.YaseaActivity" android:screenOrientation="portrait"/>
+        <!--im-->
+        <activity android:name=".ui.ChatActivity"/>
+        <service
+            android:name=".ws.service.JWebSocketClientService"
+            android:enabled="true"
+            android:exported="true" />
+        <service
+            android:name=".ws.service.GrayInnerService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":gray" />
     </application>
 
 </manifest>

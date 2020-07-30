@@ -74,4 +74,6 @@ dependencies {
     implementation 'cn.jzvd:jiaozivideoplayer:7.4.2'//饺子播放器
     implementation project(':vitamio')//无法在暂时无法在Android api 23以上的版本运行
     implementation project(':yasea')  //客户端推流
+    //java websocket
+    implementation "org.java-websocket:Java-WebSocket:1.4.0"
 }

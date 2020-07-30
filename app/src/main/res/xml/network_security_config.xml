@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <network-security-config>
-    //Android P 高版本联网失败报错解决java.net.UnknownServiceException: CLEARTEXT communication ** not permitted by
-    //参考链接：https://blog.csdn.net/SmileToLin/article/details/83651680
+    <!--Android P 高版本联网失败报错解决java.net.UnknownServiceException: CLEARTEXT communication ** not permitted by-->
     <base-config cleartextTrafficPermitted="true" />
 </network-security-config>
 
