@@ -81,7 +81,7 @@ class MineFragment : BaseFragment(){
         list2.add(GridBean(R.drawable.ic_video,"Vitamio", VitamioActivity::class.java.canonicalName))
         list2.add(GridBean(R.drawable.ic_video,"TikTok", ActivityTikTok::class.java.canonicalName))
         list2.add(GridBean(R.drawable.ic_video,"Yasea", YaseaActivity::class.java.canonicalName))
-        list2.add(GridBean(R.drawable.ic_video,"Chat", ChatActivity::class.java.canonicalName))
+        list2.add(GridBean(R.drawable.ic_message,"Chat", ChatActivity::class.java.canonicalName))
     }
 
     override fun lazyLoad() {

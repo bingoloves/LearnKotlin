@@ -72,7 +72,10 @@ class NewsFragment : BaseFragment(){
                 val gridAdapter = object :CommonAdapter<String>(context,R.layout.layout_news_image_item,images){
                     override fun convert(viewHolder: ViewHolder?, path: String?, pos: Int) {
                         var imageView = viewHolder!!.getView<ImageView>(R.id.iv_image)
-                        Glide.with(context!!).load(path).apply(RequestOptions.bitmapTransform(RoundedCorners(8))).into(imageView)
+                        if(path != imageView.getTag(R.id.iv_image)){
+                            imageView.setTag(R.id.iv_image,path)
+                            Glide.with(context!!).load(path).apply(RequestOptions.bitmapTransform(RoundedCorners(8)).skipMemoryCache(false)).into(imageView)
+                        }
                         imageView.setOnClickListener{
                            var thumbViewInfoList = computeBoundsBackward(gridLayoutManager,images)
                             GPreviewBuilder.from(fragment!!)
@@ -96,8 +99,8 @@ class NewsFragment : BaseFragment(){
         contentRv.setItemViewCacheSize(100)
         contentRv.adapter = adapter
 
-        smartRefresh.setRefreshHeader(ClassicsHeader(context).setLastUpdateTime(Date()))
-        smartRefresh.setRefreshFooter(ClassicsFooter(context))
+//        smartRefresh.setRefreshHeader(ClassicsHeader(context).setLastUpdateTime(Date()))
+//        smartRefresh.setRefreshFooter(ClassicsFooter(context))
         smartRefresh.setOnRefreshListener {
             smartRefresh.finishRefresh(2000/*,false*/)//传入false表示刷新失败
         }

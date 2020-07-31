@@ -3,6 +3,7 @@ package com.cqs.ysa.ui
 import android.content.*
 import android.os.Bundle
 import android.os.IBinder
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -13,8 +14,10 @@ import com.cqs.ysa.adapter.recyclerview.MultiItemTypeAdapter
 import com.cqs.ysa.adapter.recyclerview.base.ItemViewDelegate
 import com.cqs.ysa.adapter.recyclerview.base.ViewHolder
 import com.cqs.ysa.base.BaseActivity
+import com.cqs.ysa.statusbar.StatusBarUtil
 import com.cqs.ysa.ws.JWebSocketClient
 import com.cqs.ysa.ws.model.ChatMessage
+import com.cqs.ysa.ws.model.ChatMessageOpt
 import com.cqs.ysa.ws.receiver.ChatMessageReceiver
 import com.cqs.ysa.ws.service.JWebSocketClientService
 import com.cqs.ysa.ws.utils.MessageNotification
@@ -47,6 +50,7 @@ class ChatActivity : BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
+        StatusBarUtil.setStatusBarColor(this, ContextCompat.getColor(this, R.color.colorPrimaryDark))
         initWebSocket()
         initView()
     }
@@ -89,6 +93,7 @@ class ChatActivity : BaseActivity(){
         chatMessageReceiver?.setChatMessageListener (object : ChatMessageReceiver.ChatMessageListener{
             override fun onReceive(message: ChatMessage?) {
                 chatList.add(message!!)
+                ChatMessageOpt.insertOrReplace(activity,message)
                 adapter?.notifyDataSetChanged()
             }
         })
@@ -98,11 +103,15 @@ class ChatActivity : BaseActivity(){
 
     private fun initView() {
         contentRv.layoutManager = LinearLayoutManager(this)
+        chatList = ChatMessageOpt.queryAll(this) as ArrayList<ChatMessage>
         adapter = ChatAdapter(this,chatList)
         //设置缓存，避免数据混乱问题
         //contentRv.setItemViewCacheSize(100)
         contentRv.adapter = adapter
-
+        smartRefresh.setEnableLoadMore(false)
+        smartRefresh.setOnRefreshListener {
+            smartRefresh.finishRefresh(2000/*,false*/)//传入false表示刷新失败
+        }
         et_content.addTextChangedListener(object : TextWatcher{
             override fun afterTextChanged(s: Editable?) {
             }
@@ -132,6 +141,7 @@ class ChatActivity : BaseActivity(){
                     chatMessage.isRead = 1
                     chatMessage.time = System.currentTimeMillis().toString() + ""
                     chatList.add(chatMessage)
+                    ChatMessageOpt.insertOrReplace(activity,chatMessage)
                     adapter?.notifyDataSetChanged()
                     et_content.setText("")
                 } else {
@@ -191,5 +201,6 @@ class ChatActivity : BaseActivity(){
     override fun onDestroy() {
         super.onDestroy()
         unregisterReceiver(chatMessageReceiver)
+        unbindService(serviceConnection)
     }
 }

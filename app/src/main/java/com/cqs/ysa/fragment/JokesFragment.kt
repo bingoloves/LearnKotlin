@@ -57,8 +57,8 @@ class JokesFragment : BaseFragment(){
         contentRv.setItemViewCacheSize(10)
         contentRv.adapter = adapter
 //        contentRv.itemAnimator =
-        smartRefresh.setRefreshHeader(ClassicsHeader(context).setLastUpdateTime(Date()))
-        smartRefresh.setRefreshFooter(ClassicsFooter(context))
+//        smartRefresh.setRefreshHeader(ClassicsHeader(context).setLastUpdateTime(Date()))
+//        smartRefresh.setRefreshFooter(ClassicsFooter(context))
         smartRefresh.setOnRefreshListener {
             page =1
             isLoadMore = false

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'org.greenrobot.greendao'
 android {
     compileSdkVersion rootProject.compileSdkVersion
     defaultConfig {
@@ -15,10 +15,16 @@ android {
         ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
         }
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            resValue("string", "PORT_NUMBER", "8088")//adb forward tcp:8088 tcp:8088 必须执行，不然无法访问
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -31,6 +37,14 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
+    }
+    greendao {
+        //数据库版本号，升级时修改
+        schemaVersion 1
+        //生成的DAO，DaoMaster和DaoSession的包路径。默认与表实体所在的包路径相同
+        //daoPackage 'com.cqs.ysa.db'
+        //生成源文件的路径。默认源文件目录是在build目录中的(build/generated/source/greendao)
+        targetGenDir 'src/main/java'//指定生成DaoMaster 、DaoSession、Dao位置
     }
 }
 
@@ -48,6 +62,7 @@ dependencies {
         exclude module: 'support-media-compat'
     }
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    implementation 'com.android.support:multidex:1.0.3'
     //anko
     implementation "org.jetbrains.anko:anko:$anko_version"
     //网络请求
@@ -58,6 +73,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     //图片加载框架
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+    kapt 'com.github.bumptech.glide:compiler:4.8.0'
     //implementation 'io.coil-kt:coil:0.9.5'//图片加载库 需要Androidx
     //图片预览框架
     implementation 'com.ycjiang:ImagePreview:2.3.5'
@@ -76,4 +92,8 @@ dependencies {
     implementation project(':yasea')  //客户端推流
     //java websocket
     implementation "org.java-websocket:Java-WebSocket:1.4.0"
+    //greendao数据库
+    implementation 'org.greenrobot:greendao:3.2.2'
+    debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
+    //implementation 'net.zetetic:android-database-sqlcipher:3.5.6'//数据库加密
 }

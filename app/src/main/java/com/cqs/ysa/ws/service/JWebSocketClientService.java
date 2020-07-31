@@ -142,7 +142,7 @@ public class JWebSocketClientService extends Service {
      * @return
      */
     public boolean isConnect(){
-        if (null != client || client.isOpen()){
+        if (null != client && client.isOpen()){
             return true;
         }
         return false;
@@ -153,7 +153,7 @@ public class JWebSocketClientService extends Service {
      * @param msg
      */
     public void sendMsg(String msg) {
-        if (null != client) {
+        if (null != client && client.isOpen()) {
             Log.e("JWebSocketClientService", "发送的消息：" + msg);
             client.send(msg);
         }
@@ -234,10 +234,12 @@ public class JWebSocketClientService extends Service {
             Log.e("JWebSocketClientService", "心跳包检测websocket连接状态");
             if (client != null) {
                 if (client.isClosed()) {
+                    Log.e("JWebSocketClientService", "心跳包检测websocket连接状态：连接已关闭,即将重新连接");
                     reconnectWs();
                 }
             } else {
                 //如果client已为空，重新初始化连接
+                Log.e("JWebSocketClientService", "心跳包检测websocket连接状态：服务已断开");
                 client = null;
                 initSocketClient();
             }

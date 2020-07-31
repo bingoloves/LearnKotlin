@@ -116,8 +116,8 @@ class DrivingQuestionsFragment : BaseFragment() {
         //设置缓存，避免数据混乱问题
         contentRv.setItemViewCacheSize(100)
         contentRv.adapter = adapter
-        smartRefresh.setRefreshHeader(ClassicsHeader(context))
-        smartRefresh.setRefreshFooter(ClassicsFooter(context))
+//        smartRefresh.setRefreshHeader(ClassicsHeader(context))
+//        smartRefresh.setRefreshFooter(ClassicsFooter(context))
         smartRefresh.setOnRefreshListener {
             smartRefresh.finishRefresh(2000/*,false*/)//传入false表示刷新失败
         }
