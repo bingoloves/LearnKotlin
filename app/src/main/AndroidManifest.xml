@@ -30,14 +30,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--屏幕旋转 设置不执行重绘 避免执行多次onCreate-->
-        <activity android:name=".ui.MainActivity"
-            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation">
+        <!--启动页-->
+        <activity
+            android:name=".ui.SplashActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <!--屏幕旋转 设置不执行重绘 避免执行多次onCreate-->
+        <activity
+            android:name=".ui.MainActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation">
         </activity>
         <activity android:name=".ui.WebActivity"/>
         <activity android:name=".ui.FunctionActivity"/>
@@ -70,6 +77,7 @@
         <activity android:name=".ui.VitamioActivity"/>
         <activity android:name=".tiktok.ActivityTikTok"/>
         <activity android:name=".ui.YaseaActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".ui.NotificationActivity"/>
         <!--im-->
         <activity android:name=".ui.ChatActivity"/>
         <service
@@ -81,6 +89,8 @@
             android:enabled="true"
             android:exported="false"
             android:process=":gray" />
+        <!--通知栏点击取消的服务-->
+        <service android:name=".service.NotificationCancelService"/>
     </application>
 
 </manifest>

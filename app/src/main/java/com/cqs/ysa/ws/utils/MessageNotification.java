@@ -91,7 +91,7 @@ public class MessageNotification {
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            setNotification(context);
+                            openSettingPanel(context);
                         }
                     }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
                 @Override
@@ -106,7 +106,7 @@ public class MessageNotification {
      *
      * @param context
      */
-    private static void setNotification(Context context) {
+    private static void openSettingPanel(Context context) {
         Intent localIntent = new Intent();
         //直接跳转到应用通知设置的代码：
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

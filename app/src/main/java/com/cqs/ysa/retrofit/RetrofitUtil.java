@@ -33,6 +33,12 @@ public class RetrofitUtil {
         retrofit = new Retrofit.Builder()
                 .baseUrl(ApiService.BASE_URL)
                 .client(client)
+//                .addConverterFactory(new BaseConverterFactory() {
+//                    @Override
+//                    public BaseResponseConverter responseConverter() {
+//                        return new ResponseConverter();
+//                    }
+//                })
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();

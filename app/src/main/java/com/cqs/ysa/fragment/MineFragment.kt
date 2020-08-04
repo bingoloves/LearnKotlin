@@ -1,5 +1,6 @@
 package com.cqs.ysa.fragment
 
+import android.app.PendingIntent
 import android.content.ComponentName
 import android.content.Intent
 import android.view.View
@@ -11,7 +12,9 @@ import com.cqs.ysa.base.BaseFragment
 import com.cqs.ysa.bean.GridBean
 import com.cqs.ysa.tiktok.ActivityTikTok
 import com.cqs.ysa.ui.*
+import com.cqs.ysa.utils.NotificationUtil
 import kotlinx.android.synthetic.main.fragment_mine.*
+import java.util.*
 
 /**
  * Created by bingo on 2020/7/15 0015.
@@ -82,9 +85,9 @@ class MineFragment : BaseFragment(){
         list2.add(GridBean(R.drawable.ic_video,"TikTok", ActivityTikTok::class.java.canonicalName))
         list2.add(GridBean(R.drawable.ic_video,"Yasea", YaseaActivity::class.java.canonicalName))
         list2.add(GridBean(R.drawable.ic_message,"Chat", ChatActivity::class.java.canonicalName))
+        list2.add(GridBean(R.drawable.ic_message,"Notification", NotificationActivity::class.java.canonicalName))
     }
 
     override fun lazyLoad() {
     }
-
 }

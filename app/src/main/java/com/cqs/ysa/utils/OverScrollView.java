@@ -10,12 +10,12 @@ import android.view.animation.TranslateAnimation;
 import android.widget.ScrollView;
 
 /**
- * XScrollView主要实现两大效果。
+ * OverScrollView主要实现两大效果。
  * 1、监听下滑距离，用来更改标题状态；
  * 2、顶部回弹和底部回弹效果，并能监听顶部回弹、底部回弹（本项目顶部回弹监听可以实现界面切换，底部回弹可以实现动态加载）
  */
 
-public class XScrollView extends ScrollView {
+public class OverScrollView extends ScrollView {
 
     private OnScrollListener onScrollListener;//下滑距离监听用到
 
@@ -25,15 +25,15 @@ public class XScrollView extends ScrollView {
     private View mContentView;
     private Rect mRect = new Rect();
 
-    public XScrollView(Context context) {
+    public OverScrollView(Context context) {
         super(context);
     }
 
-    public XScrollView(Context context, AttributeSet attrs) {
+    public OverScrollView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public XScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public OverScrollView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
 
@@ -52,18 +52,18 @@ public class XScrollView extends ScrollView {
         mRect.set(mContentView.getLeft(), mContentView.getTop(), mContentView.getRight(), mContentView.getBottom());
     }
 
-    public XScrollView setOnReboundEndListener(OnReboundEndListener onReboundEndListener){
+    public OverScrollView setOnReboundEndListener(OnReboundEndListener onReboundEndListener){
         this.mOnReboundEndListener = onReboundEndListener;
         return this;
 
     }
 
-    public XScrollView setEnableTopRebound(boolean enableTopRebound){
+    public OverScrollView setEnableTopRebound(boolean enableTopRebound){
         this.mEnableTopRebound = enableTopRebound;
         return this;
     }
 
-    public XScrollView setEnableBottomRebound(boolean mEnableBottomRebound){
+    public OverScrollView setEnableBottomRebound(boolean mEnableBottomRebound){
         this.mEnableBottomRebound = mEnableBottomRebound;
         return this;
     }

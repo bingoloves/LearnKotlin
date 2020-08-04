@@ -30,7 +30,7 @@ import static com.cqs.ysa.ws.service.GrayInnerService.GRAY_SERVICE_ID;
 public class JWebSocketClientService extends Service {
     public JWebSocketClient client;
     private JWebSocketClientBinder mBinder = new JWebSocketClientBinder();
-
+    private static int DEFAULT_NOTICE_ID = 100000;
     PowerManager.WakeLock wakeLock;//锁屏唤醒
     //获取电源锁，保持该服务在屏幕熄灭时仍然获取CPU时，保持运行
     @SuppressLint("InvalidWakeLockTag")
@@ -209,6 +209,11 @@ public class JWebSocketClientService extends Service {
         intent.setClass(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationManager notifyManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        //创建大文本样式
+        NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+        bigTextStyle.setBigContentTitle("服务器")
+                .setSummaryText("wechat")//消息底部
+                .bigText(content);
         Notification notification = new NotificationCompat.Builder(this)
                 .setAutoCancel(true)
                 // 设置该通知优先级
@@ -216,13 +221,15 @@ public class JWebSocketClientService extends Service {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle("服务器")
                 .setContentText(content)
+                .setStyle(bigTextStyle)//设置大文本样式
                 .setVisibility(VISIBILITY_PUBLIC)
                 .setWhen(System.currentTimeMillis())
                 // 向通知添加声音、闪灯和振动效果
                 .setDefaults(Notification.DEFAULT_VIBRATE | Notification.DEFAULT_ALL | Notification.DEFAULT_SOUND)
                 .setContentIntent(pendingIntent)
                 .build();
-        notifyManager.notify(1, notification);//id要保证唯一
+        DEFAULT_NOTICE_ID++;
+        notifyManager.notify(DEFAULT_NOTICE_ID, notification);//id要保证唯一
     }
 
     //-------------------------------------websocket心跳检测------------------------------------------------
