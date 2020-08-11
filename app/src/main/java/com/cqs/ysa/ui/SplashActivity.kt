@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.cqs.ysa.R
 import com.cqs.ysa.base.BaseActivity
 import com.cqs.ysa.statusbar.StatusBarUtil
+import com.cqs.ysa.utils.TransitionHelper
 import kotlinx.android.synthetic.main.layout_jzstd_notitle.*
 import org.jetbrains.anko.imageView
 import org.jetbrains.anko.matchParent
@@ -21,7 +22,10 @@ class SplashActivity:BaseActivity(){
         verticalLayout {
             imageView {
                 setImageResource(R.drawable.splash)
-            }.lparams(height = matchParent, width = matchParent).postDelayed({ startActivity(MainActivity::class.java,true) },800)
+            }.lparams(height = matchParent, width = matchParent).postDelayed({
+                startActivity(MainActivity::class.java,true)
+                TransitionHelper.enterBottom(activity)
+            },800)
         }
     }
 }

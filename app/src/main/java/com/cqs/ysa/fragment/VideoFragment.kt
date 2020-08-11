@@ -30,7 +30,7 @@ class VideoFragment : BaseFragment(){
             "http://www.w3school.com.cn/i/movie.mp4", //测试mp4视频
             "https://cmgw-hz.lechange.com:8890/LCO/5C08022PBQ85CCE/0/1/20191213T015534/dev_5C08022PBQ85CCE_20191213T015534.m3u8"
     )
-    var videoUrl = testUrl[4]
+    var videoUrl = testUrl[0]
     var videoTitle = "视频"
     var isReload: Boolean = false//适配HLS,判断是否需要重新加载
     override fun contentView(): Int {
