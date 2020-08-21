@@ -86,6 +86,9 @@ class MineFragment : BaseFragment(){
         list2.add(GridBean(R.drawable.ic_video,"Yasea", YaseaActivity::class.java.canonicalName))
         list2.add(GridBean(R.drawable.ic_message,"Chat", ChatActivity::class.java.canonicalName))
         list2.add(GridBean(R.drawable.ic_message,"Notification", NotificationActivity::class.java.canonicalName))
+        //折叠列表
+        list2.add(GridBean(R.drawable.ic_news,"AppBarLayout", AppBarLayoutActivity::class.java.canonicalName))
+        list2.add(GridBean(R.drawable.ic_news,"MapActivity", MapActivity::class.java.canonicalName))
     }
 
     override fun lazyLoad() {

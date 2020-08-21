@@ -17,12 +17,21 @@ android {
         }
         multiDexEnabled true
     }
+    signingConfigs {
+        debug {
+            storeFile file("../bingo.jks")
+            storePassword "123456"
+            keyAlias "bingo"
+            keyPassword "123456"
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            signingConfig signingConfigs.debug
             minifyEnabled false
             resValue("string", "PORT_NUMBER", "8088")//adb forward tcp:8088 tcp:8088 必须执行，不然无法访问
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -101,4 +110,8 @@ dependencies {
     implementation 'org.greenrobot:greendao:3.2.2'
     debugCompile 'com.amitshekhar.android:debug-db:1.0.0'
     //implementation 'net.zetetic:android-database-sqlcipher:3.5.6'//数据库加密
+    //高德地图
+    implementation 'com.amap.api:3dmap:7.5.0'
+    implementation 'com.amap.api:location:5.1.0'
+    implementation 'com.amap.api:search:7.4.0'
 }
