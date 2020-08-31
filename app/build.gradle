@@ -114,4 +114,6 @@ dependencies {
     implementation 'com.amap.api:3dmap:7.5.0'
     implementation 'com.amap.api:location:5.1.0'
     implementation 'com.amap.api:search:7.4.0'
+    //日志工具
+    implementation 'com.elvishew:xlog:1.6.1'
 }

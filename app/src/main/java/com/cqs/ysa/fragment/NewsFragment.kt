@@ -18,9 +18,13 @@ import com.cqs.ysa.base.BaseFragment
 import com.cqs.ysa.bean.News
 import com.cqs.ysa.bean.ThumbViewInfo
 import com.cqs.ysa.bean.TopNews
+import com.cqs.ysa.retrofit.ApiService
 import com.cqs.ysa.retrofit.BaseObserver
 import com.cqs.ysa.retrofit.RetrofitUtil
+import com.cqs.ysa.retrofit.RetrofitUtil2
 import com.cqs.ysa.ui.WebActivity
+import com.elvishew.xlog.XLog
+import com.google.gson.Gson
 import com.previewlibrary.GPreviewBuilder
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
@@ -45,7 +49,7 @@ class NewsFragment : BaseFragment(){
 
     override fun initView(view: View?) {
         var title = arguments?.get("key")
-        Log.e("tag", title as String?)
+        XLog.e(title as String?)
         initView()
         getNews()
     }
@@ -110,7 +114,7 @@ class NewsFragment : BaseFragment(){
     }
 
     fun getNews(){
-        RetrofitUtil.get().apiService.getNews("top")
+        /*RetrofitUtil.get().apiService.getNews("top")
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(object : BaseObserver<TopNews>(){
@@ -125,6 +129,24 @@ class NewsFragment : BaseFragment(){
 
                     override fun onFailure(error: String?) {
                         Log.e("TAG",error)
+                    }
+                })*/
+        RetrofitUtil2.getService(ApiService.BASE_URL,ApiService::class.java).getNews("top")
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(object : BaseObserver<TopNews>(){
+                    override fun onSuccess(data: TopNews?) {
+                        if ( data!!.error_code == 0){
+                            list = data.result.data as ArrayList<News>
+                            XLog.e(Gson().toJson(list))
+                            adapter?.update(list)
+                        } else{
+                            toast(data.reason)
+                        }
+                    }
+
+                    override fun onFailure(error: String?) {
+                        XLog.e(error)
                     }
                 })
     }

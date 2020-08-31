@@ -10,6 +10,7 @@ import com.cqs.ysa.base.BaseFragment
 import com.cqs.ysa.bean.Stock
 import com.cqs.ysa.retrofit.BaseObserver
 import com.cqs.ysa.retrofit.RetrofitUtil
+import com.elvishew.xlog.XLog
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -87,7 +88,7 @@ class StockFragment : BaseFragment(){
                     }
 
                     override fun onFailure(error: String?) {
-                        Log.e("TAG",error)
+                        XLog.e(error)
                     }
                 })
     }

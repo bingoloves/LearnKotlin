@@ -29,6 +29,7 @@ import com.cqs.ysa.bean.ThumbViewInfo
 import com.cqs.ysa.retrofit.BaseObserver
 import com.cqs.ysa.retrofit.RetrofitUtil
 import com.cqs.ysa.ui.MainActivity
+import com.elvishew.xlog.XLog
 import com.previewlibrary.GPreviewBuilder
 import com.scwang.smart.refresh.footer.ClassicsFooter
 import com.scwang.smart.refresh.header.ClassicsHeader
@@ -54,7 +55,7 @@ class DrivingQuestionsFragment : BaseFragment() {
 
     override fun initView(view: View?) {
         var title = arguments?.get("key")
-        Log.e("tag", title as String?)
+        XLog.e( title as String?)
         initView()
         getDriverQuestions()
     }
@@ -133,13 +134,13 @@ class DrivingQuestionsFragment : BaseFragment() {
                 .subscribe(object : BaseObserver<DriverQuestion>(){
                     override fun onSuccess(data: DriverQuestion?) {
                         list = data?.result as ArrayList<Question>
-                        Log.e("TAG","size = "+list.size)
+                        XLog.e("size = "+list.size)
                         updateThumbView(list)
                         adapter?.update(list)
                     }
 
                     override fun onFailure(error: String?) {
-                        Log.e("TAG",error)
+                        XLog.e(error)
                     }
                 })
     }

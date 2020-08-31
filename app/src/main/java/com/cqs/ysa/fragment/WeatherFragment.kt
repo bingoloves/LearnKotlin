@@ -9,6 +9,7 @@ import com.cqs.ysa.base.BaseFragment
 import com.cqs.ysa.bean.Weather
 import com.cqs.ysa.retrofit.BaseObserver
 import com.cqs.ysa.retrofit.RetrofitUtil
+import com.elvishew.xlog.XLog
 import com.github.mikephil.charting.components.AxisBase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -114,7 +115,7 @@ class WeatherFragment : BaseFragment(){
                     }
 
                     override fun onFailure(error: String?) {
-                        Log.e("TAG",error)
+                        XLog.e(error)
                     }
                 })
     }

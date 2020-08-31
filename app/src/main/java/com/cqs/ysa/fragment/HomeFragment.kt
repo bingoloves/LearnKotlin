@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.View
 import com.cqs.ysa.R
 import com.cqs.ysa.base.BaseFragment
+import com.elvishew.xlog.XLog
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -15,7 +16,7 @@ class HomeFragment: BaseFragment() {
     }
     override fun initView(view: View?) {
         var title = arguments?.get("key")
-        Log.e("tag",title as String?)
+        XLog.e(title as String?)
         testBtn.text = " bingo "
         testBtn.setOnClickListener { view ->
             //startActivity<DrivingQuestionsActivity>("key" to "bingo")
